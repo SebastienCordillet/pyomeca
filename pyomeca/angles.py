@@ -11,6 +11,7 @@ class Angles:
     def __new__(
         cls,
         data: Optional[Union[np.array, np.ndarray, xr.DataArray]] = None,
+        channels: Optional[list] = None,
         time: Optional[Union[np.array, list, pd.Series]] = None,
         **kwargs,
     ) -> xr.DataArray:
@@ -56,6 +57,8 @@ class Angles:
             data = np.ndarray((0, 0, 0))
         if time is not None:
             coords["time"] = time
+        if channels is not None:
+            coords["channel"]= channels
         return xr.DataArray(
             data=data,
             dims=("axis", "channel", "time"),
